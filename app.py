@@ -24,5 +24,12 @@ def articles():
 def test():
     return render_template("test.html", test = '테스트')
 
+@app.route('/article/<int:id>')
+def article(id):
+    articles = Articles()
+    article = articles[id-1]
+    print(articles[id-1])
+    return render_template("article.html", article = article)
+
 if __name__ == '__main__':
     app.run()
