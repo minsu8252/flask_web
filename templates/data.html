@@ -34,14 +34,16 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                      {% for article in datas %}
+                      {% for datas in datas %}
                         <tr>
-                          <th scope="row">{{article[0]}}</th>
-                          <td><a href="/data/{{article[0]}}">{{article[1] }}</a></td>
-                          <td>{{ article[2] }}</td>
-                          <td>{{ article[3] }}</td>
-                          <td>{{ article[4] }}</td>
-                          <td><button type="button" class="btn btn-danger">Edit</button></td>
+                          <th scope="row">{{datas[0]}}</th>
+                          <td><a href="/data/{{datas[0]}}">{{ datas[1] }}</a></td>
+                          <td>{{ datas[2] }}</td>
+                          <td>{{ datas[3] }}</td>
+                          <td>{{ datas[4] }}</td>
+                          <td><button type="button" class="btn btn-warning">Edit</button>
+                            <form action="/delete/{{datas[0]}}" style="margin-top: 30%;" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')"><button type="submit" class="btn btn-danger">DEL</button>
+                            </form></td>
                         </tr>
                     {% endfor %}
                       </tbody>
@@ -52,3 +54,4 @@
     <a class="btn btn-warning btn-lg" href="/add_data" role="button">글쓰기</a>
   </div>
 {% endblock %}
+
