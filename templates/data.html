@@ -1,7 +1,7 @@
 {% extends "layouts.html" %}
 {% block body %}
-    <div class="jumbotron text-center">
-    <h1 class="display-4">ARTICLES PAGE</h1>
+<div class="jumbotron text-center">
+    <h1 class="display-4">DATA PAGE</h1>
     <p class="lead">This Application is build using by python and Flask Framework</p>
     <hr class="my-4">
     
@@ -34,7 +34,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                      {% for article in articles %}
+                      {% for article in datas %}
                         <tr>
                           <th scope="row">{{article[0]}}</th>
                           <td><a href="/data/{{article[0]}}">{{article[1] }}</a></td>
@@ -49,6 +49,6 @@
                     </div>
                     </div>
                     </div>
-    <a class="btn btn-warning btn-lg" href="#" role="button">Learn more</a>
+    <a class="btn btn-warning btn-lg" href="/add_data" role="button">글쓰기</a>
   </div>
 {% endblock %}
