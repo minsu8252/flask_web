@@ -75,8 +75,9 @@ def edit(id):
     if request.method == "POST":
         title = request.form['title']
         desc = request.form['desc']
-        sql = 'UPDATE topic SET title = %s, body = %s WHERE (id = {});'.format(id)
-        input_data = [title, desc]
+        author = request.form['author']
+        sql = 'UPDATE topic SET title = %s, body = %s, author = %s WHERE (id = {});'.format(id)
+        input_data = [title, desc, author]
         cursor.execute(sql, input_data)
         db.commit()
         return redirect('/data')
@@ -87,11 +88,26 @@ def edit(id):
         return render_template("edit_data.html", topic = topic)
 
 
-@app.route('/sign_in' , methods=['POST', 'get'])    
-def sign_in():
+@app.route('/register',  methods=["get", "POST"])    
+def register():
     cursor = db.cursor()
+    if request.method == "POST":
+        name = request.form['name']
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        sql = "INSERT INTO users (name, email, username, password) values (%s, %s, %s ,%s);"
+        input_data = [name, email, username, password]
+
+        cursor.execute(sql, input_data)
+        db.commit()
+        return redirect('http://localhost:5000')
+    else:
+        return render_template("register.html")
     
-    return render_template("sign_in.html")
+
+
 
 # 쌤이 만든거----------------------------------------------------
 
