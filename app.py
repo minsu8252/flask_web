@@ -24,7 +24,7 @@ def data_1():
     cursor.execute(sql)
     topics = cursor.fetchall()
     # print(topics)
-    return render_template("data.html", datas = topics)
+    return render_template("data.html", topics = topics)
 
 @app.route('/data/<int:id>')
 def data(id):
@@ -71,16 +71,20 @@ def delete(id):
 
 @app.route('/<int:id>/edit', methods=['post', 'get'])
 def edit(id):
-    # cursor = db.cursor()
+    cursor = db.cursor()
     if request.method == "post":
         return 'Success'
     else:
-        return render_template("edit_data.html")
+        sql = "SELECT * FROM topic WHERE id = {}".format(id)
+        cursor.execute(sql)
+        topic = cursor.fetchone()   
+        return render_template("edit_data.html", topic = topic)
 
 
 @app.route('/sign_in' , methods=['POST', 'get'])    
 def sign_in():
     cursor = db.cursor()
+    
     return render_template("sign_in.html")
 
 # 쌤이 만든거----------------------------------------------------

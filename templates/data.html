@@ -34,15 +34,15 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                      {% for datas in datas %}
+                      {% for topics in topics %}
                         <tr>
-                          <th scope="row">{{datas[0]}}</th>
-                          <td><a href="/data/{{datas[0]}}">{{ datas[1] }}</a></td>
-                          <td>{{ datas[2] }}</td>
-                          <td>{{ datas[3] }}</td>
-                          <td>{{ datas[4] }}</td>
-                          <td><a href="/{{datas[0]}}/edit"><button type="button" class="btn btn-warning">Edit</button></a>
-                            <form action="/delete/{{datas[0]}}" style="margin-top: 30%;" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')"><button type="submit" class="btn btn-danger">DEL</button>
+                          <th scope="row">{{topics[0]}}</th>
+                          <td><a href="/data/{{topics[0]}}">{{ topics[1] }}</a></td>
+                          <td>{{ topics[2] }}</td>
+                          <td>{{ topics[3] }}</td>
+                          <td>{{ topics[4] }}</td>
+                          <td><a href="/{{topics[0]}}/edit"><button type="button" class="btn btn-warning">Edit</button></a>
+                            <form action="/delete/{{topics[0]}}" style="margin-top: 30%;" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')"><button type="submit" class="btn btn-danger">DEL</button>
                             </form></td>
                         </tr>
                     {% endfor %}
