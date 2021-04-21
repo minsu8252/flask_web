@@ -111,12 +111,17 @@ def register():
 def login():
     cursor = db.cursor()
     if request.method == "POST":
-        sql = 'SELECT password FROM users WHERE email = "1@naver.com";'
-        cursor.execute(sql)
+        usersname = request.form['username']
+        password_1 = request.form['password']
+        # print(password_1)
+
+        sql = 'SELECT password FROM users WHERE email = %s;'
+        input_data = [usersname]
+        cursor.execute(sql,input_data)
         password = cursor.fetchone()
         print(password[0])
-        if sha256_crypt.verify("1234", "$5$rounds=535000$XiXEAgiSLZ3lfJu4$FNkUUWlK1Kpzy1/uJmoeJxwWnkmSFhySGdwTN0bK/R3"):
-            return "Success"
+        if sha256_crypt.verify(password_1, password[0]):
+            return "success"
         else:
             return password[0]
 
