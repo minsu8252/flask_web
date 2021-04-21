@@ -1,6 +1,7 @@
 from flask import Flask , render_template, request, redirect
 from data import Articles
 import pymysql
+from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
@@ -95,18 +96,31 @@ def register():
         name = request.form['name']
         username = request.form['username']
         email = request.form['email']
-        password = request.form['password']
+        password = sha256_crypt.encrypt(request.form['password'])
 
         sql = "INSERT INTO users (name, email, username, password) values (%s, %s, %s ,%s);"
         input_data = [name, email, username, password]
 
         cursor.execute(sql, input_data)
         db.commit()
-        return redirect('http://localhost:5000')
+        return redirect('/')
     else:
-        return render_template("register.html")
+        return render_template("register.html") #여기에 주소넣기
     
+@app.route('/login',  methods=["get", "POST"])    
+def login():
+    cursor = db.cursor()
+    if request.method == "POST":
+        sql = 'SELECT password FROM users WHERE email = "1@naver.com";'
+        cursor.execute(sql)
+        password = cursor.fetchone()
+        print(password[0])
+        if sha256_crypt.verify("1234", "$5$rounds=535000$XiXEAgiSLZ3lfJu4$FNkUUWlK1Kpzy1/uJmoeJxwWnkmSFhySGdwTN0bK/R3"):
+            return "Success"
+        else:
+            return password[0]
 
+    # return render_template("login.html")
 
 
 # 쌤이 만든거----------------------------------------------------
