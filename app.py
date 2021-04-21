@@ -48,7 +48,7 @@ def add_data():
         
         cursor.execute(sql, input_data)
         db.commit()
-        print(cursor.rowcount)
+        # print(cursor.rowcount)
         # db.close()
         # print(request.form['desc'])
         return redirect("/data")
@@ -69,11 +69,17 @@ def delete(id):
 
     return redirect("/data")
 
-@app.route('/<int:id>/edit', methods=['post', 'get'])
+@app.route('/<int:id>/edit', methods=['POST', 'get'])
 def edit(id):
     cursor = db.cursor()
-    if request.method == "post":
-        return 'Success'
+    if request.method == "POST":
+        title = request.form['title']
+        desc = request.form['desc']
+        sql = 'UPDATE topic SET title = %s, body = %s WHERE (id = {});'.format(id)
+        input_data = [title, desc]
+        cursor.execute(sql, input_data)
+        db.commit()
+        return redirect('/data')
     else:
         sql = "SELECT * FROM topic WHERE id = {}".format(id)
         cursor.execute(sql)
@@ -124,7 +130,7 @@ def articles():
 def article(id):
     articles = Articles()
     article = articles[id-1]
-    print(articles[id-1])
+    # print(articles[id-1])
     return render_template("article.html", article = article)
 
 @app.route('/', methods=['GET'])
