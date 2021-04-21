@@ -69,8 +69,19 @@ def delete(id):
 
     return redirect("/data")
 
-    
+@app.route('/<int:id>/edit', methods=['post', 'get'])
+def edit(id):
+    # cursor = db.cursor()
+    if request.method == "post":
+        return 'Success'
+    else:
+        return render_template("edit_data.html")
 
+
+@app.route('/sign_in' , methods=['POST', 'get'])    
+def sign_in():
+    cursor = db.cursor()
+    return render_template("sign_in.html")
 
 # 쌤이 만든거----------------------------------------------------
 

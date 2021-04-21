@@ -41,7 +41,7 @@
                           <td>{{ datas[2] }}</td>
                           <td>{{ datas[3] }}</td>
                           <td>{{ datas[4] }}</td>
-                          <td><button type="button" class="btn btn-warning">Edit</button>
+                          <td><a href="/{{datas[0]}}/edit"><button type="button" class="btn btn-warning">Edit</button></a>
                             <form action="/delete/{{datas[0]}}" style="margin-top: 30%;" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')"><button type="submit" class="btn btn-danger">DEL</button>
                             </form></td>
                         </tr>
