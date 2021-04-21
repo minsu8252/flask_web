@@ -111,20 +111,24 @@ def register():
 def login():
     cursor = db.cursor()
     if request.method == "POST":
-        usersname = request.form['username']
+        email = request.form['email']
         password_1 = request.form['password']
         # print(password_1)
 
-        sql = 'SELECT password FROM users WHERE email = %s;'
-        input_data = [usersname]
+        sql = 'SELECT * FROM users WHERE email = %s;'
+        input_data = [email]
         cursor.execute(sql,input_data)
-        password = cursor.fetchone()
-        print(password[0])
-        if sha256_crypt.verify(password_1, password[0]):
-            return "success"
+        user = cursor.fetchone()
+        if user == None : #로그인 내용이 DB에 없을 때
+            # print(user)
+            return redirect('/register')
         else:
-            return password[0]
-
+            if sha256_crypt.verify(password_1, user[4]):  #로그인 O
+                return redirect('/data')
+            else: #로그인 X
+                return redirect('/')
+    else:
+        return render_template("login.html")
     # return render_template("login.html")
 
 
